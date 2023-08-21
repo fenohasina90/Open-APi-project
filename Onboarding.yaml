@@ -1,0 +1,137 @@
+openapi: '3.0.2'
+info:
+  title: Onboarding
+  description: STD22013
+  contact:
+    email: hei.fenohasina@gmail.com
+  version: '1.0'
+servers:
+  - url: https://STD22013/api/studentTest
+ 
+paths:
+  /students:
+    get:
+      tags:
+        - "Student" 
+      summary: Get all students
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+               $ref: '#/components/schemas/StudentsResponse'
+        
+        '500': 
+          description: Internal Server Error
+
+
+    post:
+      tags:
+        - "Student"
+      summary: Add Student 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentInput'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddStudentsResponse'
+
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - "Student"
+      summary: Update an student
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: Update by student id
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentInput'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsResponse'
+
+        '500':
+          description: Internal Server Error
+
+    delete:
+      tags:
+        - "Student"
+      summary: Delete Student
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: Delete by student id
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No content
+          
+        '500':
+          description: Internal Server Error  
+components:
+  schemas:
+    StudentsResponse:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Fenohasina
+        birthDate: 
+          type: string
+          format: date
+          example: 2003-11-08  
+    AddStudentsResponse:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Fenohasina
+        birthDate: 
+          type: string
+          format: date
+          example: 2003-11-08
+    StudentInput:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: New id
+        name:
+          type: string
+          example: New student name
+        birthDate: 
+          type: string
+          format: date
+          example: New birth date
+
+
+

@@ -1,0 +1,94 @@
+openapi: '3.0.2'
+info:
+  title: Teachers and Courses API
+  description: API to retrieve teacher information and their courses
+  contact:
+    email: hei.fenohasina@gmail.com
+  version: '1.0'
+servers:
+  - url: https://teachers/api/test
+
+paths:
+  /teachers:
+    get:
+      tags:
+        - "Teacher"
+      summary: Get Teacher by ID
+      responses:
+        '200':
+          description: successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeacherResponse'
+        '500':
+          description: Internal Server Error
+    post:
+      tags:
+        - "Teacher"
+      summary: Create a new Teacher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherInput'
+      responses:
+        '201':
+          description: Created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeacherResponse'
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    TeacherResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Toky
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Course'
+            
+    Course:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Algorithme
+        code:
+          type: string
+          example: PROG1
+        duration:
+          type: string
+          example: 2 hours
+
+    TeacherInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Toky
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseInput'
+            
+    CourseInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Interface web
+        code:
+          type: string
+          example: WEB1
+        duration:
+          type: string
+          example: 2 hours
